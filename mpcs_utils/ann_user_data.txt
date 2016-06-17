@@ -1,0 +1,12 @@
+#!/bin/bash -ex
+cd /home/ubuntu
+wget https://s3.amazonaws.com/mpcs-students/zuomingli/gas_annotator.zip
+unzip gas_annotator.zip
+rm gas_annotator.zip
+cd mpcs_utils
+sudo cp /home/ubuntu/mpcs_utils/.aws/* /home/ubuntu/.aws
+sudo chown -R ubuntu:ubuntu /home/ubuntu/mpcs_utils
+sudo chown -R ubuntu:ubuntu /home/ubuntu/.aws
+sudo -u ubuntu python /home/ubuntu/mpcs_utils/jobs_runner.py &
+sudo -u ubuntu python /home/ubuntu/mpcs_utils/results_notify.py &
+sudo -u ubuntu python /home/ubuntu/mpcs_utils/glacier_collector.py &
